@@ -1,3 +1,4 @@
+
 const express = require('express');
 
 const authenticationMiddleware = require('../../middlewares/authentication-middleware');
@@ -30,6 +31,20 @@ module.exports = (app) => {
     authenticationMiddleware,
     celebrate(usersValidator.updateUser),
     usersControllers.updateUser
+  );
+
+  route.get(
+    '/:changePassword',
+    authenticationMiddleware,
+    usersControllers.getUser
+  );
+
+  //Change Password
+  route.patch(
+    '/:id/change-password',
+    authenticationMiddleware,
+    celebrate(usersValidator.changePasword),
+    usersControllers.changePassword
   );
 
   // Delete user

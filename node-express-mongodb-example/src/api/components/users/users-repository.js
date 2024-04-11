@@ -1,3 +1,4 @@
+
 const { User } = require('../../../models');
 
 /**
@@ -15,6 +16,10 @@ async function getUsers() {
  */
 async function getUser(id) {
   return User.findById(id);
+}
+
+async function getEmail(email) {
+  return User.findOne({ email: email });
 }
 
 /**
@@ -53,6 +58,10 @@ async function updateUser(id, name, email) {
   );
 }
 
+async function updatePassword(id, newPassword) {
+  await User.findByIdAndUpdate(id, { password: newPassword });
+}
+
 /**
  * Delete a user
  * @param {string} id - User ID
@@ -65,7 +74,9 @@ async function deleteUser(id) {
 module.exports = {
   getUsers,
   getUser,
+  getEmail,
   createUser,
   updateUser,
+  updatePassword,
   deleteUser,
 };
